@@ -1,24 +1,20 @@
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Arrays;
 
-public class League {
+public class Division {
     public String name;
-    public Division[] divs;
     public ArrayList<Team> teamList = new ArrayList<>();
 
-    public League(String name, Division[] divs){
+    public Division(String name,Team[] teams){
         this.name = name;
-        this.divs = divs;
-        for(Division div: divs){
-            this.mergeAdd(this.teamList,div.getTeams());
-        }
+        this.teamList.addAll(Arrays.asList(teams));
     }
 
-    public ArrayList<Team> getTeamList(){
+    public ArrayList<Team> getTeams(){
         return this.teamList;
     }
 
-    public ArrayList<Team> mergeAdd(ArrayList<Team> teamList, ArrayList<Team> newTeamList){
+    public ArrayList<Team> mergeAdd(ArrayList<Team> teamList, ArrayList<Team> newTeamList) {
         for (Team newTeam : newTeamList) {
             if (teamList.isEmpty()) {
                 teamList.add(newTeam);
@@ -32,7 +28,7 @@ public class League {
                     break;
                 }
             }
-            if(!added){
+            if (!added) {
                 teamList.add(newTeam);
             }
 
@@ -40,27 +36,16 @@ public class League {
         return teamList;
     }
 
-    public ArrayList<Team> teamRank(){
-        return this.teamList;
-    }
-
-    public void sortTeamList(){
-        ArrayList<Team> sortedTeam = new ArrayList<>();
-        this.teamList = this.mergeAdd(sortedTeam,this.teamList);
-    }
-
     public void sort(){
-        this.sortTeamList();
-        for(Division div: this.divs){
-            div.sort();
-        }
+        ArrayList<Team> newList = new ArrayList<>();
+        this.teamList = this.mergeAdd(newList,this.teamList);
     }
 
     @Override
     public String toString() {
         StringBuilder s = new StringBuilder(this.name + "\n");
-        for(Division div: this.divs){
-            s.append("\n").append(div);
+        for(Team team: this.teamList){
+            s.append(team);
         }
         return s.toString();
     }

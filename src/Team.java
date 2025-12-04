@@ -16,4 +16,9 @@ public class Team {
     public String toString(){
         return this.name + " - " + this.rank + "\n";
     }
+
+    public boolean compareTo(Team other){
+        if(other == null) return false;
+        return this.rank < other.rank;
+    }
 }

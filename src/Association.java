@@ -1,21 +1,18 @@
+import java.awt.image.AreaAveragingScaleFilter;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.List;
 
-public class League {
+public class Association {
     public String name;
-    public Division[] divs;
-    public ArrayList<Team> teamList = new ArrayList<>();
+    public League[] leagues;
+    ArrayList<Team> teamList = new ArrayList<>();
 
-    public League(String name, Division[] divs){
+    public Association(String name, League[] leagues){
         this.name = name;
-        this.divs = divs;
-        for(Division div: divs){
-            this.mergeAdd(this.teamList,div.getTeams());
+        this.leagues = leagues;
+        for(League league: this.leagues) {
+            this.teamList = this.mergeAdd(this.teamList, league.getTeamList());
         }
-    }
-
-    public ArrayList<Team> getTeamList(){
-        return this.teamList;
     }
 
     public ArrayList<Team> mergeAdd(ArrayList<Team> teamList, ArrayList<Team> newTeamList){
@@ -44,6 +41,12 @@ public class League {
         return this.teamList;
     }
 
+    public void randomizeRank(){
+        for(Team team: this.teamList){
+            team.setRank((int)(Math.random()*30)+1);
+        }
+    }
+
     public void sortTeamList(){
         ArrayList<Team> sortedTeam = new ArrayList<>();
         this.teamList = this.mergeAdd(sortedTeam,this.teamList);
@@ -51,16 +54,16 @@ public class League {
 
     public void sort(){
         this.sortTeamList();
-        for(Division div: this.divs){
-            div.sort();
+        for(League league: this.leagues){
+            league.sort();
         }
     }
 
     @Override
     public String toString() {
         StringBuilder s = new StringBuilder(this.name + "\n");
-        for(Division div: this.divs){
-            s.append("\n").append(div);
+        for(League league: this.leagues){
+            s.append("\n").append(league);
         }
         return s.toString();
     }
