@@ -1,8 +1,7 @@
 public class Team {
     public String name;
     public int rank = 0;
-
-    public Team(){}
+    public int win = 0, loss = 0, totWin = 0, totLos = 0;
 
     public Team(String name){
         this.name = name;
@@ -10,6 +9,13 @@ public class Team {
 
     public void setRank(int rank){
         this.rank = rank;
+    }
+
+    public void reset(){
+        this.totLos += this.loss;
+        this.loss = 0;
+        this.totWin += this.win;
+        this.win = 0;
     }
 
     @Override

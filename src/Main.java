@@ -1,13 +1,16 @@
 
 public class Main {
     public static void main(String[] args){
-        Association mlb = buildLeague();
-        mlb.sort();
-
-        System.out.println(mlb);
+        Association mlb = buildMLB();
+        mlb.randomizeRank();
+        System.out.println(mlb.listTeamByRank());
+        Team home = mlb.teamList.get(0);
+        Team away = mlb.teamList.get(1);
+        Series series = new Series(home,away,new int[]{1,2,2,2,1,1,1});
+        series.playSeries();
     }
 
-    public static Association buildLeague(){
+    public static Association buildMLB(){
         Association mlb = new Association("MLB", new League[]{
             new League("American League", new Division[]{
                 new Division("East",new Team[]{
@@ -54,8 +57,6 @@ public class Main {
                     new Team("Colorado Rockies")
                 })
                 })});
-
-        mlb.randomizeRank();
 
         return mlb;
     }
