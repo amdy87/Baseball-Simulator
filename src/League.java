@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.List;
 
 public class League {
     public String name;
@@ -10,7 +9,7 @@ public class League {
         this.name = name;
         this.divs = divs;
         for(Division div: divs){
-            this.mergeAdd(this.teamList,div.getTeams());
+            Merger.mergeAdd(this.teamList,div.getTeams());
         }
     }
 
@@ -18,27 +17,7 @@ public class League {
         return this.teamList;
     }
 
-    public ArrayList<Team> mergeAdd(ArrayList<Team> teamList, ArrayList<Team> newTeamList){
-        for (Team newTeam : newTeamList) {
-            if (teamList.isEmpty()) {
-                teamList.add(newTeam);
-                continue;
-            }
-            boolean added = false;
-            for (int j = 0; j < teamList.size(); j++) {
-                if (!teamList.get(j).compareTo(newTeam)) {
-                    teamList.add(j, newTeam);
-                    added = true;
-                    break;
-                }
-            }
-            if(!added){
-                teamList.add(newTeam);
-            }
 
-        }
-        return teamList;
-    }
 
     public ArrayList<Team> teamRank(){
         return this.teamList;
@@ -46,7 +25,7 @@ public class League {
 
     public void sortTeamList(){
         ArrayList<Team> sortedTeam = new ArrayList<>();
-        this.teamList = this.mergeAdd(sortedTeam,this.teamList);
+        this.teamList = Merger.mergeAdd(sortedTeam,this.teamList);
     }
 
     public void sort(){

@@ -11,31 +11,11 @@ public class Association {
         this.name = name;
         this.leagues = leagues;
         for(League league: this.leagues) {
-            this.teamList = this.mergeAdd(this.teamList, league.getTeamList());
+            this.teamList = Merger.mergeAdd(this.teamList, league.getTeamList());
         }
     }
 
-    public ArrayList<Team> mergeAdd(ArrayList<Team> teamList, ArrayList<Team> newTeamList){
-        for (Team newTeam : newTeamList) {
-            if (teamList.isEmpty()) {
-                teamList.add(newTeam);
-                continue;
-            }
-            boolean added = false;
-            for (int j = 0; j < teamList.size(); j++) {
-                if (!teamList.get(j).compareTo(newTeam)) {
-                    teamList.add(j, newTeam);
-                    added = true;
-                    break;
-                }
-            }
-            if(!added){
-                teamList.add(newTeam);
-            }
 
-        }
-        return teamList;
-    }
 
     public String listTeamByRank(){
         StringBuilder s = new StringBuilder(name + "\n");
@@ -61,7 +41,7 @@ public class Association {
 
     public void sortTeamList(){
         ArrayList<Team> sortedTeam = new ArrayList<>();
-        this.teamList = this.mergeAdd(sortedTeam,this.teamList);
+        this.teamList = Merger.mergeAdd(sortedTeam,this.teamList);
     }
 
     public void sort(){
