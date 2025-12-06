@@ -10,7 +10,7 @@ public class Merger {
             }
             boolean added = false;
             for (int j = 0; j < teamList.size(); j++) {
-                if (!teamList.get(j).compareTo(newTeam)) {
+                if (!teamList.get(j).lessThan(newTeam)) {
                     teamList.add(j, newTeam);
                     added = true;
                     break;

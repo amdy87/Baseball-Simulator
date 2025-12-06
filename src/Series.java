@@ -1,10 +1,12 @@
 public class Series {
     public Team team1, team2;
-    public Game[] games;
-    public int currGame = 0;
-    public int vicPt;
+    private Game[] games;
+    private int currGame = 0;
+    private int vicPt;
+    public Team victor;
+    private String name;
 
-    public Series(Team team1, Team team2, int[] home){
+    public Series(Team team1, Team team2, int[] home, String name){
         this.team1 = team1;
         this.team1.reset();
         this.team2 = team2;
@@ -19,6 +21,7 @@ public class Series {
         }
         this.vicPt =  (int)Math.ceil(this.games.length/2.0);
 
+        this.name = name;
     }
 
     public Team playGame(){
@@ -30,20 +33,30 @@ public class Series {
         System.out.println(s);
         System.out.println("Series: " + this.games[currGame].away.win + " - " + this.games[currGame].home.win + "\n");
         currGame ++;
-        if(this.team1.win >= this.vicPt) return this.team1;
-        else if(this.team2.win >= this.vicPt) return this.team2;
+        if(this.team1.win >= this.vicPt) {
+            this.victor = this.team1;
+            return this.team1;
+        }else if(this.team2.win >= this.vicPt) {
+            this.victor = this.team2;
+            return this.team2;
+        }
         return null;
     }
 
     public Team playSeries(){
+        System.out.println(this.toString());
         for(int i = 0; i < this.games.length;i++){
             Team victor = this.playGame();
             if(victor != null){
-                System.out.println("The " +victor.name + " have won the series!");
+                System.out.println("The " +victor.name + " have won the series!\n\n");
                 return victor;
             }
         }
         return null;
     }
 
+    @Override
+    public String toString() {
+        return this.name + ": " + this.team1.name + " vs. " + this.team2.name;
+    }
 }

@@ -23,7 +23,7 @@ public class Team {
         return this.name + " - " + this.rank + "\n";
     }
 
-    public boolean compareTo(Team other){
+    public boolean lessThan(Team other){
         if(other == null) return false;
         return this.rank < other.rank;
     }

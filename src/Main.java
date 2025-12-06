@@ -2,7 +2,9 @@
 public class Main {
     public static void main(String[] args){
         Association mlb = buildMLB();
-        WorldSeries ws = new WorldSeries(mlb,false);
+        mlb.randomizeRank();
+        WorldSeries ws = new WorldSeries(mlb);
+        ws.simulate();
 
     }
 
